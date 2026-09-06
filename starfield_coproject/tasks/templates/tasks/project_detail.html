@@ -1,0 +1,76 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}{{ project.name }} - StarField CoProject{% endblock %}
+
+{% block content %}
+    <a href="{% url 'dashboard' %}">← Back to Dashboard</a>
+    <h2>{{ project.name }}</h2>
+    <p>{{ project.description }}</p>
+    <p><strong>Your Role:</strong> {{ role }}</p>
+
+    {% if role == 'Owner' %}
+        <a href="{% url 'create_invitation' project.id %}"><button>+ Invite Collaborators</button></a>
+    {% endif %}
+    
+    {% if role == 'Owner' or role == 'Admin' %}
+        <a href="{% url 'manage_collaborators' project.id %}"><button>Manage Collaborators</button></a>
+    {% endif %}
+
+    <hr>
+
+    <h3>Tasks</h3>
+    {% if role != 'Viewer' %}
+        <a href="{% url 'create_task' project.id %}"><button>+ Add Task</button></a>
+    {% endif %}
+
+    <br><br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Assigned To</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>
+                    {% if role != 'Viewer' %}
+                        <form action="{% url 'update_task_status' project.id task.id %}" method="POST" class="form-inline">
+                            {% csrf_token %}
+                            <select name="status" onchange="this.form.submit()" class="status-dropdown">
+                                {% for s in statuses %}
+                                    <option value="{{ s }}" {% if task.status == s %}selected{% endif %}>{{ s }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    {% else %}
+                        {{ task.status }}
+                    {% endif %}
+                </td>
+                <td>{{ task.priority.level }}</td>
+                <td>{{ task.assigned_to.username }}</td>
+                <td>{{ task.due_date }}</td>
+                <td>
+                    <a href="{% url 'task_detail' project.id task.id %}"><button>View</button></a>
+                    
+                    {% if role != 'Viewer' %}
+                        <a href="{% url 'edit_task' project.id task.id %}"><button>Edit</button></a>
+                        <a href="{% url 'delete_task' project.id task.id %}"><button>Delete</button></a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No tasks available in this project yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

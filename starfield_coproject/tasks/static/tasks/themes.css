@@ -1,0 +1,55 @@
+/* tasks/static/tasks/themes.css */
+
+/* tasks/static/tasks/themes.css */
+
+/* 1. Universal Variables (Applies to ALL themes) */
+:root {
+    --border-radius: 5px;
+    --box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* 2. Color Palettes */
+
+/* Default Light Theme */
+body.theme-default {
+    --primary-color: #2c3e50;
+    --secondary-color: #8e44ad;
+    --background-color: #f4f7f6;
+    --text-color: #333333;
+    --white: #ffffff;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+}
+
+/* Default Dark Theme */
+body.theme-dark {
+    --primary-color: #5dade2;
+    --secondary-color: #af7ac5;
+    --background-color: #1a1a1a;
+    --text-color: #f4f7f6;
+    --white: #2c2c2c;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+}
+
+/* Catppuccin Mocha (Dark) */
+body.theme-mocha {
+    --primary-color: #89b4fa;
+    --secondary-color: #cba6f7;
+    --background-color: #1e1e2e;
+    --text-color: #cdd6f4;
+    --white: #313244;
+    --danger-color: #f38ba8;
+    --warning-color: #fab387;
+}
+
+/* Catppuccin Latte (Light) */
+body.theme-latte {
+    --primary-color: #1e66f5;
+    --secondary-color: #8839ef;
+    --background-color: #eff1f5;
+    --text-color: #4c4f69;
+    --white: #e6e9ef;
+    --danger-color: #d20f39;
+    --warning-color: #fe640b;
+}

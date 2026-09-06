@@ -1,0 +1,48 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Register - StarField CoProject{% endblock %}
+
+{% block content %}
+    <h2>Create Account</h2>
+    
+    <form action="{% url 'register' %}" method="POST" onsubmit="return validatePasswords()">
+        {% csrf_token %}
+        
+        <div>
+            <label>Username:</label>
+            <input type="text" name="username" required minlength="3" class="form-input-large">
+        </div>
+        <br>
+        <div>
+            <label>Email:</label>
+            <input type="email" name="email" required class="form-input-large">
+        </div>
+        <br>
+        <div>
+            <label>Password:</label>
+            <input type="password" id="password" name="password" required minlength="6" class="form-input-large">
+        </div>
+        <br>
+        <div>
+            <label>Confirm Password:</label>
+            <input type="password" id="confirm_password" required minlength="6" class="form-input-large">
+        </div>
+        <br>
+        <button type="submit">Register</button>
+    </form>
+    
+    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+
+    <script>
+        function validatePasswords() {
+            const pass = document.getElementById('password').value;
+            const confirm = document.getElementById('confirm_password').value;
+            
+            if (pass !== confirm) {
+                alert("Error: Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+{% endblock %}

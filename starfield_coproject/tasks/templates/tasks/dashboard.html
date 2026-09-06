@@ -1,0 +1,46 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Dashboard - StarField CoProject{% endblock %}
+
+{% block content %}
+    <h2>Welcome, {{ user.username }}!</h2>
+    
+    <h3>Your Projects</h3>
+    <a href="{% url 'create_project' %}"><button>+ Create New Project</button></a>
+    
+    <br><br>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Project Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for membership in memberships %}
+                <tr>
+                    <td>
+                        <a href="{% url 'project_detail' membership.project.id %}">
+                            <strong>{{ membership.project.name }}</strong>
+                        </a>
+                    </td>
+                    <td>{{ membership.project.description }}</td>
+                    <td>
+                        {% if membership.role.name == 'Owner' or membership.role.name == 'Admin' %}
+                            <a href="{% url 'edit_project' membership.project.id %}"><button>Edit</button></a>
+                            <a href="{% url 'delete_project' membership.project.id %}"><button>Delete</button></a>
+                        {% else %}
+                            <span class="text-muted">View Only</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No projects found. Start by creating one!</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

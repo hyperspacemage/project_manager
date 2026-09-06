@@ -1,0 +1,61 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Manage Collaborators - {{ project.name }}{% endblock %}
+
+{% block content %}
+    <h2>Manage Collaborators: {{ project.name }}</h2>
+    
+    <a href="{% url 'project_detail' project.id %}"><button>Back to Project</button></a>
+    
+    <br><br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Current Role</th>
+                <th>Joined At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+                <tr>
+                    <td>
+                        <strong>{{ member.user.username }}</strong>
+                        {% if member.user.id == current_user_id %}
+                            <span class="text-muted">(You)</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ member.user.email }}</td>
+                    <td>
+                        {% if member.user.id != current_user_id %}
+                            <form action="{% url 'update_member_role' project.id member.id %}" method="POST" class="form-inline">
+                                {% csrf_token %}
+                                <select name="role_id" onchange="this.form.submit()" class="status-dropdown">
+                                    {% for r in roles %}
+                                        <option value="{{ r.id }}" {% if member.role.id == r.id %}selected{% endif %}>{{ r.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        {% else %}
+                            {{ member.role.name }}
+                        {% endif %}
+                    </td>
+                    <td>{{ member.joined_at|date:"M d, Y" }}</td>
+                    <td>
+                        {% if member.user.id != current_user_id %}
+                            <form action="{% url 'remove_member' project.id member.id %}" method="POST" class="form-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-small-danger">Remove</button>
+                            </form>
+                        {% else %}
+                            <span class="text-muted">Owner</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}StarField CoProject{% endblock %}</title>
+    
+    <link rel="stylesheet" href="{% static 'tasks/themes.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'tasks/style.css' %}">
+</head>
+<body class="theme-default">
+    <div class="container">
+        
+        <header class="site-header" style="display: flex; justify-content: space-between; align-items: baseline;">
+            <div>
+                <h1 class="site-title">StarField CoProject</h1>
+                {% if request.session.user_id %}
+                    <a href="{% url 'dashboard' %}">Dashboard</a> | 
+                    <a href="{% url 'logout' %}">Logout ({{ request.session.username }})</a>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="theme-selector" style="font-weight: bold; margin-right: 5px;">Theme:</label>
+                <select id="theme-selector" onchange="changeTheme()" style="padding: 5px; border-radius: var(--border-radius); background-color: var(--white); color: var(--text-color); border: 1px solid var(--primary-color);">
+                </select>
+            </div>
+        </header>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+    </div>
+
+    <!-- Theme Switcher Logic -->
+    <script>
+        // Just add a new object to this array, and define the CSS class in style.css
+        const themes = [
+            { id: 'theme-default', name: 'Default Light' },
+            { id: 'theme-dark', name: 'Default Dark' },
+            { id: 'theme-mocha', name: 'Catppuccin Mocha' },
+            { id: 'theme-latte', name: 'Catppuccin Latte' }
+            // Example: { id: 'theme-dracula', name: 'Dracula Dark' }
+        ];
+
+        function initializeThemeSwitcher() {
+            const selector = document.getElementById('theme-selector');
+            const savedTheme = localStorage.getItem('starfield_theme') || 'theme-default';
+
+            themes.forEach(theme => {
+                const option = document.createElement('option');
+                option.value = theme.id;
+                option.textContent = theme.name;
+                
+                if (theme.id === savedTheme) {
+                    option.selected = true;
+                }
+                
+                selector.appendChild(option);
+            });
+
+            document.body.className = savedTheme;
+        }
+
+        function changeTheme() {
+            const theme = document.getElementById('theme-selector').value;
+            document.body.className = theme;
+            localStorage.setItem('starfield_theme', theme);
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeThemeSwitcher);
+    </script>
+</body>
+</html>

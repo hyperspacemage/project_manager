@@ -1,0 +1,149 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+}
+
+h2, h3 {
+    color: var(--primary-color);
+}
+
+button {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border: none;
+    padding: 8px 15px;
+    border-radius: var(--border-radius); /* If this breaks, make sure --border-radius is in themes.css */
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--white);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+    border: 1px solid var(--text-color);
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+/* --- Layout and Utility Classes --- */
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.site-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.site-title {
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.text-danger {
+    color: var(--danger-color);
+    font-weight: bold;
+}
+
+.form-input-large {
+    width: 300px;
+    max-width: 100%;
+}
+
+.comment-card {
+    background-color: var(--white);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* --- Comment & Spacing Utilities --- */
+
+.section-divider {
+    margin-top: 30px;
+}
+
+.comments-container {
+    margin-bottom: 20px;
+}
+
+.text-muted {
+    font-size: 0.8em;
+    opacity: 0.7; /* Using opacity instead of a hardcoded color ensures it adapts perfectly to every theme! */
+}
+
+.comment-text {
+    margin: 5px 0 0 0;
+}
+
+/* --- Button Utilities --- */
+
+.form-inline {
+    display: inline;
+}
+
+.btn-small-danger {
+    background-color: var(--danger-color);
+    padding: 4px 8px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+/* --- Dashboard Utilities --- */
+
+.status-dropdown {
+    padding: 4px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--primary-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* --- Collaborator Management Utilities --- */
+
+.btn-small {
+    padding: 4px 8px;
+    font-size: 0.85em;
+}
+
+.btn-small-warning {
+    background-color: var(--warning-color);
+    color: var(--white);
+    padding: 4px 8px;
+    font-size: 0.85em;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}

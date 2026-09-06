@@ -1,0 +1,23 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Edit Project - StarField CoProject{% endblock %}
+
+{% block content %}
+    <h2>Edit Project: {{ project.name }}</h2>
+    
+    <form action="{% url 'edit_project' project.id %}" method="POST">
+        {% csrf_token %}
+        <div>
+            <label>Project Name:</label><br>
+            <input type="text" name="name" value="{{ project.name }}" required minlength="3" class="form-input-large">
+        </div>
+        <br>
+        <div>
+            <label>Description:</label><br>
+            <textarea name="description" rows="4" cols="50">{{ project.description }}</textarea>
+        </div>
+        <br>
+        <button type="submit">Save Changes</button>
+        <a href="{% url 'dashboard' %}">Cancel</a>
+    </form>
+{% endblock %}

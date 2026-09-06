@@ -1,0 +1,10 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}Join Project - StarField CoProject{% endblock %}
+
+{% block content %}
+    <h2>You have been invited to join "{{ project.name }}"!</h2>
+    <p>Please log in or create an account to accept the invitation.</p>
+    <a href="{% url 'login' %}"><button>Log In</button></a>
+    <a href="{% url 'register' %}"><button>Register</button></a>
+{% endblock %}
